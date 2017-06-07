@@ -5,11 +5,14 @@ import { Component } from '@angular/core';
     template: `
         <div>
             <h3>Events</h3>
-            <div *ngFor="let event of events">
+            <div *ngFor="let event of events" class="col-md-6">
                 <event-thumbnail [event]="event" (getEventOut)="handleGetEvent($event)" #thumbnail></event-thumbnail>
                 <p>{{thumbnail.childVar}}</p>
                 <button class="btn btn-default" (click)="thumbnail.logData(event)">Log data</button>
             </div>
+
+            <hr>
+
     </div>
     `
 })
