@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
     selector: 'event-thumbnail',
     template: `
-        <div class="well hoverwell thumbnail">
+        <div class="well hoverwell thumbnail" [routerLink]="['/events', event.id]">
           <h2>{{event?.name}}</h2>
           <div>Date: {{event?.date}}</div>
           <div [ngSwitch]="event?.time" [class.green]="event?.time === '8:00 am'">
@@ -31,6 +31,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         }
         .green {
             color: green;
+        }
+        .well {
+            cursor: pointer;
         }
     `]
 })
