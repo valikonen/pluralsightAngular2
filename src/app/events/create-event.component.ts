@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
     template: `
         <h3>Add new Event</h3>
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 })
 
 export class CreateEventComponent {
+
+    isDirty:boolean = true;
 
     constructor(private router: Router) {
 
