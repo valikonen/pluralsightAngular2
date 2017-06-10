@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -23,6 +23,7 @@ import {
 import { Error404Component } from './errors/404.component';
 import { ToastrService } from './common/toastr.service';
 
+import { AuthService } from './user/auth.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ToastrService } from './common/toastr.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
@@ -48,9 +50,10 @@ import { ToastrService } from './common/toastr.service';
       provide: 'canDeactivateCreateEvent', 
       useValue: checkDirtyState 
     },
-    EventListResolver
+    EventListResolver,
+    AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
 
