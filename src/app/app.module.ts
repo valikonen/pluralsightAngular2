@@ -17,7 +17,8 @@ import {
   EventsService,
   EventRouterActivator,
   EventListResolver,
-  CreateSessionComponent
+  CreateSessionComponent,
+  SessionListComponent
 
 } from './events/index';
 
@@ -35,7 +36,8 @@ import { AuthService } from './user/auth.service';
     EventDetailsComponent,
     Error404Component,
     CreateEventComponent,
-    CreateSessionComponent
+    CreateSessionComponent,
+    SessionListComponent
   ],
   imports: [
     BrowserModule,

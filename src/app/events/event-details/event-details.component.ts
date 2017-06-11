@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventsService } from '../shared/events.service';
 
 import { IEvent } from '../shared/index';
+import { ISession } from '../shared/index';
 
 @Component({
     template: `
@@ -30,6 +31,22 @@ import { IEvent } from '../shared/index';
               </address>
             </div>
           </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-md-2">
+              <h3>Sessions</h3>
+            </div>
+            <div class="col-md-2">
+              <a (click)="addSession()">Add Session</a>
+            </div>
+          </div>
+
+          <session-list [sessions]="event?.sessions" *ngIf="! addMode"></session-list>
+
+          <create-session *ngIf="addMode" (saveNewSession)="handleNewEventSession($event)" (cancelAddSession)="handleCancelAddSession()"></create-session>
+
         </div>
     `
 })
@@ -37,12 +54,30 @@ import { IEvent } from '../shared/index';
 export class EventDetailsComponent implements OnInit {
     
     event: IEvent;
+    addMode: boolean;
     constructor(private eventsService: EventsService, private activatedRoute: ActivatedRoute){
 
     }
 
     ngOnInit(){
         this.event = this.eventsService.getEvent(+this.activatedRoute.snapshot.params['eventId']);
+    }
+
+    addSession(){
+      this.addMode = true;
+    }
+
+    handleNewEventSession(session: ISession) {
+      const nextId = Math.max.apply(null, this.event.sessions.map( session => {session.id} ));
+
+      session.id = nextId + 1;
+      this.event.sessions.push(session);
+      this.eventsService.updateEvent(this.event);
+      this.addMode = false;
+    }
+
+    handleCancelAddSession(){
+      this.addMode = false;
     }
 
 }
