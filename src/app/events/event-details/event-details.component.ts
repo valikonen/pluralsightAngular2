@@ -13,15 +13,15 @@ import { ISession } from '../shared/index';
         
           <div class="row">
             <div class="col-md-11">
-              <h2>{{event?.name}} </h2>
+              <h2> {{event?.name | uppercase}} </h2>
             </div>
           </div>
         
           <div class="row">
             <div class="col-md-6">
-              <div><strong>Date:</strong> {{event?.date}}</div>
+              <div><strong>Date:</strong> {{ event?.date | date: 'shortDate' }}</div>
               <div><strong>Time:</strong> {{event?.time}}</div>
-              <div><strong>Price:</strong> {{event?.price}}</div>
+              <div><strong>Price:</strong> {{event?.price | currency: 'USD': true}}</div>
             </div>
             <div class="col-md-6">
               <address>
@@ -38,12 +38,20 @@ import { ISession } from '../shared/index';
             <div class="col-md-2">
               <h3>Sessions</h3>
             </div>
-            <div class="col-md-2">
+            
+            <div class="col-md-7">
+              <button class="btn btn-default" [class.active]="filterBy === 'all'" (click)="filterBy = 'all'">All</button>
+              <button class="btn btn-default" [class.active]="filterBy === 'beginer'" (click)="filterBy = 'beginer'">Beginer</button>
+              <button class="btn btn-default" [class.active]="filterBy === 'intermediate'" (click)="filterBy = 'intermediate'">Intermediate</button>
+              <button class="btn btn-default" [class.active]="filterBy === 'advanced'" (click)="filterBy = 'advanced'">Advanced</button>
+            </div>
+
+            <div class="col-md-2">            
               <a (click)="addSession()">Add Session</a>
             </div>
           </div>
 
-          <session-list [sessions]="event?.sessions" *ngIf="! addMode"></session-list>
+          <session-list [sessions]="event?.sessions" [filterByInput]="filterBy" *ngIf="! addMode"></session-list>
 
           <create-session *ngIf="addMode" (saveNewSession)="handleNewEventSession($event)" (cancelAddSession)="handleCancelAddSession()"></create-session>
 
@@ -55,6 +63,8 @@ export class EventDetailsComponent implements OnInit {
     
     event: IEvent;
     addMode: boolean;
+    filterBy: string = "all";
+
     constructor(private eventsService: EventsService, private activatedRoute: ActivatedRoute){
 
     }
@@ -79,5 +89,6 @@ export class EventDetailsComponent implements OnInit {
     handleCancelAddSession(){
       this.addMode = false;
     }
+    
 
 }
