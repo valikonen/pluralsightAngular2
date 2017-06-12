@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { EventsService } from './shared/events.service';
-import { ToastrService } from '../common/toastr.service';
 
 import { IEvent } from './shared/index';
 
@@ -12,7 +11,7 @@ import { IEvent } from './shared/index';
         <div>
             <h3>Events</h3>
             <div *ngFor="let event of events" class="col-md-6">
-                <event-thumbnail [event]="event" (getEventOut)="handleGetEvent($event)" (click)="showEventName(event.name)" #thumbnail> </event-thumbnail>
+                <event-thumbnail [event]="event" (getEventOut)="handleGetEvent($event)" #thumbnail> </event-thumbnail>
                 <p>{{thumbnail.childVar}}</p>
                 <button class="btn btn-default" (click)="thumbnail.logData(event)">Log data</button>
             </div>
@@ -27,7 +26,7 @@ export class EventsListComponent implements OnInit {
 
     events: IEvent[];
 
-    constructor(private eventsService: EventsService, private toastrService: ToastrService, private activatedRoute: ActivatedRoute) {
+    constructor(private eventsService: EventsService, private activatedRoute: ActivatedRoute) {
         
     }
     ngOnInit(){
@@ -38,7 +37,4 @@ export class EventsListComponent implements OnInit {
         console.log(e);
     }
 
-    showEventName(eventName) {
-        this.toastrService.success(eventName);
-    }
 }

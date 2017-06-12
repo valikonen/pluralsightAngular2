@@ -44,6 +44,9 @@ import { ISession } from '../shared/index';
               <button class="btn btn-default" [class.active]="filterBy === 'beginer'" (click)="filterBy = 'beginer'">Beginer</button>
               <button class="btn btn-default" [class.active]="filterBy === 'intermediate'" (click)="filterBy = 'intermediate'">Intermediate</button>
               <button class="btn btn-default" [class.active]="filterBy === 'advanced'" (click)="filterBy = 'advanced'">Advanced</button>
+
+              <button class="btn btn-default" [class.active]="sortBy === 'name'" (click)="sortBy = 'name'">By Name</button>
+              <button class="btn btn-default" [class.active]="sortBy === 'voters'" (click)="sortBy = 'voters'">By Voters</button>
             </div>
 
             <div class="col-md-2">            
@@ -51,7 +54,7 @@ import { ISession } from '../shared/index';
             </div>
           </div>
 
-          <session-list [sessions]="event?.sessions" [filterByInput]="filterBy" *ngIf="! addMode"></session-list>
+          <session-list [sessions]="event?.sessions" [filterByInput]="filterBy" [sortByInput]="sortBy" *ngIf="! addMode"></session-list>
 
           <create-session *ngIf="addMode" (saveNewSession)="handleNewEventSession($event)" (cancelAddSession)="handleCancelAddSession()"></create-session>
 

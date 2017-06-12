@@ -26,9 +26,11 @@ import {
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
 
 import { Error404Component } from './errors/404.component';
-import { ToastrService } from './common/toastr.service';
+import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
 
 import { AuthService } from './user/auth.service';
+
+declare let toastr: Toastr;
 
 @NgModule({
   declarations: [
@@ -53,7 +55,10 @@ import { AuthService } from './user/auth.service';
   ],
   providers: [
     EventsService,
-    ToastrService,
+    {
+      provide: TOASTR_TOKEN,
+      useValue: toastr
+    },
     EventRouterActivator,
     { 
       provide: 'canDeactivateCreateEvent', 
