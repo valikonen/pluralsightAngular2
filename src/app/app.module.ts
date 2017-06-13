@@ -23,14 +23,13 @@ import {
 
 } from './events/index';
 
-import { CollapsibleWellComponent } from './common/collapsible-well.component';
-
 import { Error404Component } from './errors/404.component';
-import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
+import { JQ_TOKEN, TOASTR_TOKEN, Toastr, CollapsibleWellComponent, SimpleModalComponent , ModalTriggerDirective} from './common/index';
 
 import { AuthService } from './user/auth.service';
 
 declare let toastr: Toastr;
+declare let jQuery: Object;
 
 @NgModule({
   declarations: [
@@ -44,7 +43,9 @@ declare let toastr: Toastr;
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
-    DurationPipe
+    DurationPipe,
+    SimpleModalComponent,
+    ModalTriggerDirective
   ],
   imports: [
     BrowserModule,
@@ -63,6 +64,10 @@ declare let toastr: Toastr;
     { 
       provide: 'canDeactivateCreateEvent', 
       useValue: checkDirtyState 
+    },
+    {
+      provide: JQ_TOKEN,
+      useValue: jQuery
     },
     EventListResolver,
     AuthService
